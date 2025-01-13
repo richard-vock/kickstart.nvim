@@ -377,12 +377,13 @@ require('lazy').setup({
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      local pyroot = vim.fs.dirname(vim.fs.find({'pyproject.toml', '.git'}, { upward = true })[1])
       local servers = {
         -- clangd = {},
         -- gopls = {},
         pyright = {
           --cmd = { vim.fn.expand("~/.local/share/nvim-kickstart/mason/bin/pyright") },
-          root_dir = vim.fs.dirname(vim.fs.find({'pyproject.toml', '.git'}, { upward = true })[1]),
+          root_dir = pyroot,
           settings = {
             python = {
               analysis = {
@@ -390,7 +391,10 @@ require('lazy').setup({
                 diagnosticMode = 'workspace',
               },
               venv = '.venv',
-              venvPath = '.',
+              venvPath = '/home/richard/source/dminds/pde',
+              pythonVersion = '3.11',
+              include= { 'press_analysis' },
+              verboseOutput = true,
             },
           },
         },
